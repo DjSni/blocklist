@@ -1,0 +1,10 @@
+# Optional manual block entries, same supported formats as the downloaded lists.
+# example-tracker.local
+
+www.msn.com
+tss-geotrust-crl.thawte.com
+varsitygameshowdowns.com
+clients3.google.com
+euc13.playlist.ttvnw.net
+^.*acronis.*$	
+^.*adobe.*$
