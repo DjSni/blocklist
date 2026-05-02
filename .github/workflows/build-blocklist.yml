@@ -3,44 +3,81 @@ name: Build Technitium Blocklist
 on:
   workflow_dispatch:
   schedule:
-    # GitHub schedules run in UTC. Avoid minute 0 because scheduled workflows can be delayed or dropped at high-load times.
+    # UTC. Avoid minute 0 because scheduled workflows can be delayed at high-load times.
     - cron: "17 * * * *"
 
 permissions:
   contents: write
 
+defaults:
+  run:
+    shell: bash
+
 concurrency:
   group: technitium-blocklist-build
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 55
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - name: Restore HTTP cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/http
+          key: blocklist-http-cache-${{ github.run_id }}
+          restore-keys: |
+            blocklist-http-cache-
+
       - name: Merge blocklists
+        env:
+          OUTPUT_DIR: public
+          MAX_WORKERS: "24"
+          FETCH_TIMEOUT_SECONDS: "25"
+          MINIMIZE_COVERED_DOMAINS: "true"
         run: python scripts/merge_blocklists.py
 
-      - name: Commit generated files
+      - name: Save HTTP cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/http
+          key: blocklist-http-cache-${{ github.run_id }}
+
+      - name: Show generated size
         run: |
-          if git diff --quiet -- dist/technitium-blocklist.txt dist/metadata.json; then
-            echo "No blocklist changes. Nothing to commit."
-            exit 0
+          ls -lh public/technitium-blocklist.txt public/metadata.json
+          python - <<'PY'
+          import json
+          data = json.load(open('public/metadata.json', encoding='utf-8'))
+          print('entries:', data['final_block_entries'])
+          print('size_mb:', round(data['output_size_bytes'] / 1024 / 1024, 2))
+          print('sha256:', data['output_sha256'])
+          PY
+
+      - name: Publish as latest GitHub Release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view latest >/dev/null 2>&1; then
+            gh release create latest \
+              --title "Latest Technitium blocklist" \
+              --notes "Automatically generated Technitium DNS blocklist."
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add dist/technitium-blocklist.txt dist/metadata.json
-          git commit -m "Update Technitium blocklist"
-          git pull --rebase
-          git push
+          gh release upload latest \
+            public/technitium-blocklist.txt \
+            public/metadata.json \
+            --clobber
