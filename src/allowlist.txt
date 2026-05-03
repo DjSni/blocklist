@@ -196,13 +196,12 @@ krebsonsecurity.com
 simplemachines.org
 www.worldometers.info
 content.evernote.com
-
+wikimedia.org
 www.instant-gaming.com
-
+www.twitch.tv
+twitchcdn.net
 ssl-ccstatic.highwebmedia.com
-
 www.ojrq.net
-
 roomimg.stream.highwebmedia.com
 rads.stackoverflow.com
 media-amt2-1.cdn.whatsapp.net
