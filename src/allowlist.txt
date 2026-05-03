@@ -192,13 +192,14 @@ click.email.ccpgames.com
 click.alibaba.com
 instagram.com
 krebsonsecurity.com
-
 simplemachines.org
 www.worldometers.info
 content.evernote.com
+wikipedia.org
 wikimedia.org
 www.instant-gaming.com
 www.twitch.tv
+assets.twitch.tv
 twitchcdn.net
 ssl-ccstatic.highwebmedia.com
 www.ojrq.net
