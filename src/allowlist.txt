@@ -294,3 +294,7 @@ account-public-service-prod03.ol.epicgames.com
 datarouter.ol.epicgames.com
 account-public-service-prod.ak.epicgames.com
 datarouter-prod.ak.epicgames.com
+lencr.org
+static.nvidiagrid.net
+www.reddit.com
+www.ebay.de
