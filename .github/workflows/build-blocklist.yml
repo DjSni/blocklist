@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # UTC. Avoid minute 0 because scheduled workflows can be delayed at high-load times.
-    - cron: "17 * * * *"
+    - cron: "13 */3 * * *"
 
 permissions:
   contents: write
