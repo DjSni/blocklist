@@ -290,3 +290,7 @@ eapi.pcloud.com
 static-cdn.jtvnw.net
 irc-ws.chat.twitch.tv
 ctldl.windowsupdate.com
+account-public-service-prod03.ol.epicgames.com
+datarouter.ol.epicgames.com
+account-public-service-prod.ak.epicgames.com
+datarouter-prod.ak.epicgames.com
