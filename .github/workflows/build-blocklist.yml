@@ -3,6 +3,7 @@ name: Build Technitium Blocklist
 on:
   push:
     branches: [ main ]
+  pull_request:  [ main ]
   workflow_dispatch:
   schedule:
     # UTC. Avoid minute 0 because scheduled workflows can be delayed at high-load times.
