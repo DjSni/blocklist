@@ -61,8 +61,8 @@ https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts
 https://github.com/badmojr/1Hosts/releases/download/latest/1hosts-Xtra_domains.txt
 https://abpvn.com/android/abpvn.txt
 https://raw.githubusercontent.com/AdAway/adaway.github.io/master/hosts.txt
-https://easylist.to/easylistgermany/easylistgermany.txt
-https://easylist.to/easylist/easyprivacy.txt
+#https://easylist.to/easylistgermany/easylistgermany.txt
+#https://easylist.to/easylist/easyprivacy.txt
 https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
 https://raw.githubusercontent.com/tiuxo/hosts/master/ads
 https://raw.githubusercontent.com/jmdugan/blocklists/master/corporations/facebook/all
